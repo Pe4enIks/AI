@@ -12,6 +12,7 @@ def get_dataset(dataset, test_size, random_state):
         raise ValueError(f'no dataset with name {dataset}')
 
     X, y = data.data, data.target
+    X = (X - X.mean()) / (X.std() + 1e-9)
     y = (y > 0).astype(np.int8) * 2 - 1
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
     return (X_train, y_train), (X_test, y_test)
